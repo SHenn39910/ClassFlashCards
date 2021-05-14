@@ -9,6 +9,7 @@ function saveCard(){
     console.log(Cards);
     eraseCards();
     numCard();
+    storeCards();
 }
 
 numCard =()=> {
@@ -18,4 +19,16 @@ numCard =()=> {
 eraseCards = () => {
     document.getElementById('frontCard').value = "";
     document.getElementById('backCard'). value= "";
+}
+
+storeCards = () => {
+    let serializedCards = JSON.stringify(Cards);
+    localforage.setItem('flashcards', serializedCards).then(function ()
+    {
+        return localforage.getItem('key');
+    }).then(function (value) {
+        alert("saved");
+    }).catch(function (err){
+        console.log("error:" + err);
+    });
 }
